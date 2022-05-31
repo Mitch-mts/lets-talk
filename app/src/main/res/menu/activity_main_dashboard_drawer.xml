@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_hotel"
+            android:icon="@android:drawable/ic_menu_always_landscape_portrait"
+            android:title="Hotels" />
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="Location" />
+    </group>
+
+    <item android:title="Social Corner">
+        <menu>
+            <item
+                android:id="@+id/nav_posts"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Posts" />
+            <item
+                android:id="@+id/nav_messages"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Messages" />
+            <item
+                android:id="@+id/nav_friends"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Friends" />
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Contact Us" />
+        </menu>
+    </item>
+
+</menu>

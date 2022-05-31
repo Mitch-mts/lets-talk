@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="preferenceScreen">
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="reply"
+            app:title="@string/reply_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="general"
+        android:summary="Username and password information"
+        android:title="General">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="menuOpenOnStart"
+            android:summary="Yes/No"
+            android:title="Show side menu on start" />
+        <ListPreference
+            android:defaultValue="16"
+            android:entries="@array/fontentries"
+            android:entryValues="@array/fontvalues"
+            android:key="fontSize"
+            android:summary="Preferred text size for articles and posts"
+            android:title="Text size" />
+        <Preference
+            android:key="notifications"
+            android:summary="@string/settings_notifications_summary"
+            android:title="@string/settings_notifications" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="other"
+        android:summary="@string/settings_other_summary"
+        android:title="@string/settings_other">
+        <Preference
+            android:key="about"
+            android:summary="@string/settings_aboutus_summary"
+            android:title="@string/settings_aboutus" />
+        <Preference
+            android:key="licenses"
+            android:summary="@string/settings_licenses_summary"
+            android:title="@string/settings_licenses" />
+        <Preference
+            android:key="rate"
+            android:summary="@string/settings_rate_summary"
+            android:title="@string/settings_rate" />
+        <Preference
+            android:key="version"
+            android:summary="@string/empty_textview"
+            android:title="@string/settings_version" />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="reply"
+            app:title="@string/reply_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
