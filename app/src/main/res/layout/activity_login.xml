@@ -131,14 +131,14 @@
 
             <TextView
                 android:id="@+id/forgot_password"
-                android:layout_width="match_parent"
+                android:layout_width="335dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="40dp"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="@string/forgot_password"
                 android:textColor="@color/white"
-                android:textSize="15sp"
-                android:layout_marginStart="40dp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 

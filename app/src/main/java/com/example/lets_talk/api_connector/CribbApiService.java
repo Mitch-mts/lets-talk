@@ -43,8 +43,10 @@ public interface CribbApiService {
     @GET("/v1/admin")
     Call<Responsee<List<UserAccount>>> getUserAccounts();
 
+//    @POST("/v1/user/forgot-password")
+//    Call<MessageResponse> forgetPassword(@Header("Authorization") String token, @Query("email") String email);
     @POST("/v1/user/forgot-password")
-    Call<MessageResponse> forgetPassword(@Header("Authorization") String token, @Query("email") String email);
+    Call<MessageResponse> forgetPassword(@Query("email") String email);
 
     @GET("/v1/sign-up/confirm-account")
     Call<Responsee<MessageResponse>> verifyToken(@Header("Authorization") String token,

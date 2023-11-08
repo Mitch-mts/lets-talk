@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     TextView letstalk;
-    TextView resetPassword;
+    TextView returnToLogin;
     Button submitReset;
     private static String token;
 
@@ -34,19 +34,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         letstalk = findViewById(R.id.letstalk);
-        resetPassword = findViewById(R.id.go_login);
+        returnToLogin = findViewById(R.id.go_login);
         submitReset = findViewById(R.id.reset_password);
 
         Typeface custom_fonts = Typeface.createFromAsset(getAssets(), "fonts/ArgonPERSONAL-Regular.otf");
         letstalk.setTypeface(custom_fonts);
 
-        resetPassword.setOnClickListener(v -> {
+        returnToLogin.setOnClickListener(v -> {
             Intent it = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
             startActivity(it);
             finish();
         });
 
-        submitReset.setOnClickListener(v -> getToken());
+        submitReset.setOnClickListener(v -> resetAccountPassword());
     }
 
 
@@ -85,7 +85,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         pd.show();
 
         RetrofitClient reset_password_client = new RetrofitClient(Constants.USER_MANAGEMENT_BASE_URL);
-        Call<MessageResponse> reset_password_call = reset_password_client.getCribbApiService().forgetPassword("Bearer " + token, emailAddress);
+//        Call<MessageResponse> reset_password_call = reset_password_client.getCribbApiService().forgetPassword("Bearer " + token, emailAddress);
+        Call<MessageResponse> reset_password_call = reset_password_client.getCribbApiService().forgetPassword(emailAddress);
 
         reset_password_call.enqueue(new Callback<MessageResponse>() {
             @Override

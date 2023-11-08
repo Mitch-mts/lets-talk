@@ -47,33 +47,6 @@ public class MainDashboardActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-//        bottomNavigationView.setOnItemSelectedListener(item -> {
-//            Fragment selectedFragment = new Fragment();
-//            switch (item.getItemId()) {
-//                case R.id.home:
-//                    selectedFragment = new HomeFragment();
-//                    break;
-//
-//                case R.id.settings:
-//                    selectedFragment = new SettingsFragment();
-//                    break;
-//
-//                case R.id.order:
-//                    selectedFragment = new GalleryFragment();
-//                    break;
-//
-//                case R.id.cart:
-//                    selectedFragment = new SlideshowFragment();
-//                    break;
-//
-//            }
-//            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main_dashboard, selectedFragment)
-//                    .addToBackStack(null).commit();
-//
-//            return true;
-//        });
-
     }
 
 

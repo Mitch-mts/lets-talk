@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 public class RegistrationActivity extends AppCompatActivity {
     TextView letstalk;
-    TextView goLogin;
+    TextView goToLogin;
     Button register;
     Spinner spinner;
     private static String token;
@@ -42,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         letstalk = findViewById(R.id.letstalk);
-        goLogin = findViewById(R.id.go_login);
+        goToLogin = findViewById(R.id.go_login);
         register = findViewById(R.id.register);
         spinner = findViewById(R.id.gender_spinner);
         datePicker = findViewById(R.id.datePicker1);
@@ -59,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
-        goLogin.setOnClickListener(v -> {
+        goToLogin.setOnClickListener(v -> {
             Intent it = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(it);
             finish();
