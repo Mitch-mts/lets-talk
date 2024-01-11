@@ -21,7 +21,9 @@ import com.example.lets_talk.custom.TokenRequest;
 import com.example.lets_talk.custom.TokenResponse;
 import com.example.lets_talk.custom.UserRegistration;
 import com.example.lets_talk.utils.Constants;
+import com.example.lets_talk.utils.Gender;
 import com.example.lets_talk.utils.Responsee;
+import com.example.lets_talk.utils.UserDto;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
             finish();
         });
 
-        register.setOnClickListener(v -> getToken());
+        register.setOnClickListener(v -> registerUser());
 
     }
 
@@ -95,51 +97,29 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void registerUser(){
-        EditText user = findViewById(R.id.user);
-        EditText firstname = findViewById(R.id.firstname);
-        EditText lastname = findViewById(R.id.lastname);
-        EditText email = findViewById(R.id.email);
-        EditText mobileNumber = findViewById(R.id.mobileNumber);
-        EditText location = findViewById(R.id.location);
-        EditText password = findViewById(R.id.password);
-        EditText confirmPassword = findViewById(R.id.pass);
-        DatePicker datePicker = findViewById(R.id.datePicker1);
-
-        String username = user.getText().toString().trim();
-        String firstName = firstname.getText().toString().trim();
-        String surname = lastname.getText().toString().trim();
-        String sex = spinner.getSelectedItem().toString().trim();
-//        String dateOfBirth = dob.getText().toString().trim();
-        String emailAddress = email.getText().toString().trim();
-        String mobile = mobileNumber.getText().toString().trim();
-        String residence = location.getText().toString().trim();
-        String pass = password.getText().toString().trim();
-        String confirmPass = confirmPassword.getText().toString().trim();
-        String dateOfBirth = datePicker.getDayOfMonth() + "-" +  datePicker.getMonth() + "-" + datePicker.getYear();
-        Log.i("dob::", dateOfBirth);
-
-        isPasswordValid(pass, confirmPass);
+        UserDto userDetails = getUserDetails();
 
         ProgressDialog pd = new ProgressDialog(RegistrationActivity.this);
         pd.setMessage("Loading...");
         pd.show();
 
-
-        UserRegistration userRegistration = UserRegistration.of(username,
-                firstName,
-                surname,
-                emailAddress,
-                pass,
-                residence,
-                dateOfBirth,
-                sex,
-                mobile,
-                confirmPass);
+        UserRegistration userRegistration = UserRegistration.of(userDetails.getUsername(),
+                                                                userDetails.getFirstName(),
+                                                                userDetails.getLastName(),
+                                                                userDetails.getEmailAddress(),
+                                                                userDetails.getPassword(),
+                                                                userDetails.getLocation(),
+                                                                userDetails.getDob(),
+                                                                userDetails.getGender().name(),
+                                                                userDetails.getMobileNumber(),
+                                                                userDetails.getConfirmPassword());
         Log.i("registration request::", userRegistration.toString());
 
-        RetrofitClient signup_client = new RetrofitClient(Constants.LOGIN_URL);
+        RetrofitClient signup_client = new RetrofitClient(Constants.SIGN_UP);
+//        Call<Responsee<MessageResponse>> signup_call = signup_client.getCribbApiService()
+//                .createAccount("Bearer " + token, userRegistration);
         Call<Responsee<MessageResponse>> signup_call = signup_client.getCribbApiService()
-                .createAccount("Bearer " + token, userRegistration);
+                .createAccount(userRegistration);
 
         signup_call.enqueue(new Callback<Responsee<MessageResponse>>() {
             @Override
@@ -165,6 +145,43 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private UserDto getUserDetails() {
+        EditText user = findViewById(R.id.user);
+        EditText firstname = findViewById(R.id.firstname);
+        EditText lastname = findViewById(R.id.lastname);
+        EditText email = findViewById(R.id.email);
+        EditText mobileNumber = findViewById(R.id.mobileNumber);
+        EditText location = findViewById(R.id.location);
+        EditText password = findViewById(R.id.password);
+        EditText confirmPassword = findViewById(R.id.pass);
+        DatePicker datePicker = findViewById(R.id.datePicker1);
+
+        String username = user.getText().toString().trim();
+        String firstName = firstname.getText().toString().trim();
+        String surname = lastname.getText().toString().trim();
+        String sex = spinner.getSelectedItem().toString().trim();
+        String emailAddress = email.getText().toString().trim();
+        String mobile = mobileNumber.getText().toString().trim();
+        String residence = location.getText().toString().trim();
+        String pass = password.getText().toString().trim();
+        String confirmPass = confirmPassword.getText().toString().trim();
+        String dateOfBirth = datePicker.getDayOfMonth() + "-" +  datePicker.getMonth() + "-" + datePicker.getYear();
+        Log.i("dob::", dateOfBirth);
+
+        isPasswordValid(pass, confirmPass);
+
+        return UserDto.of(username,
+                pass,
+                confirmPass,
+                firstName,
+                surname,
+                Gender.valueOf(sex),
+                dateOfBirth,
+                residence,
+                emailAddress,
+                mobile);
     }
 
     private void isPasswordValid(String password, String confirPassword) {

@@ -47,7 +47,7 @@ public class ActivationActivity extends AppCompatActivity {
             finish();
         });
 
-        submitReset.setOnClickListener(v -> getToken());
+        submitReset.setOnClickListener(v -> verifyAccount());
     }
 
     public void getToken(){
@@ -86,10 +86,11 @@ public class ActivationActivity extends AppCompatActivity {
         pd.setMessage("Loading...");
         pd.show();
 
-        RetrofitClient verify_token_client = new RetrofitClient(Constants.USER_MANAGEMENT_BASE_URL);
-        Call<Responsee<MessageResponse>> verify_token_call = verify_token_client.getCribbApiService().verifyToken("Bearer " + token,
-                username,
-                verificationToken);
+        RetrofitClient verify_token_client = new RetrofitClient(Constants.SIGN_UP);
+//        Call<Responsee<MessageResponse>> verify_token_call = verify_token_client.getCribbApiService().verifyToken("Bearer " + token,
+//                username,
+//                verificationToken);
+        Call<Responsee<MessageResponse>> verify_token_call = verify_token_client.getCribbApiService().verifyToken(verificationToken);
 
         verify_token_call.enqueue(new Callback<Responsee<MessageResponse>>() {
             @Override
@@ -103,7 +104,7 @@ public class ActivationActivity extends AppCompatActivity {
                     startActivity(it);
                     finish();
 
-                }else{
+                } else{
                     pd.dismiss();
                     Toast.makeText(ActivationActivity.this, "Could not verify Account", Toast.LENGTH_LONG).show();
 

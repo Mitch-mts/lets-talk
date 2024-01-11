@@ -4,8 +4,8 @@ package com.example.lets_talk.custom;
  * Created by Mitch on 23/4/2019.
  */
 public class UserLoginRequest {
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     public UserLoginRequest() {
     }
