@@ -14,12 +14,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.lets_talk.ui.changepassword.ChangePasswordFragment;
-import com.example.lets_talk.ui.changepassword.ListMenuFragment;
 import com.example.lets_talk.ui.home.HomeFragment;
-import com.example.lets_talk.ui.hotels.HotelsFragment;
-import com.example.lets_talk.ui.hotels.MyListActivity;
 import com.example.lets_talk.ui.settings.SettingsFragment;
-import com.example.lets_talk.ui.slideshow.SlideshowFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -82,11 +78,6 @@ public class MainDashboardActivity extends AppCompatActivity
                     .replace(R.id.nav_host_fragment_content_main_dashboard, new ChangePasswordFragment()).commit();
         }
 
-        if(id == R.id.action_profile){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main_dashboard, new ListMenuFragment()).commit();
-        }
-
         if(id == R.id.action_settings){
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.nav_host_fragment_content_main_dashboard, new SettingsFragment()).commit();
@@ -118,36 +109,10 @@ public class MainDashboardActivity extends AppCompatActivity
                     .replace(R.id.nav_host_fragment_content_main_dashboard, new HomeFragment()).commit();
 
 
-        } else if (id == R.id.nav_hotel) {
+        } else if(id == R.id.messages) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main_dashboard, new HotelsFragment()).commit();
-
-
-        } else if (id == R.id.nav_location) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main_dashboard, new SlideshowFragment()).commit();
-
-
-        } else if (id == R.id.nav_posts) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main_dashboard, new ListMenuFragment()).commit();
-
-        } else if (id == R.id.nav_messages) {
-
-            Intent intent = new Intent(MainDashboardActivity.this, MyListActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-
-        }else if(id == R.id.nav_friends){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main_dashboard, new SlideshowFragment()).commit();
-
-        }else if(id == R.id.nav_contact){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.nav_host_fragment_content_main_dashboard, new HomeFragment()).commit();
-
-    }
+                    .replace(R.id.nav_host_fragment_content_main_dashboard, new MessagesFragment()).commit();
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -9,11 +9,7 @@
         <item
             android:id="@+id/nav_hotel"
             android:icon="@android:drawable/ic_menu_always_landscape_portrait"
-            android:title="Hotels" />
-        <item
-            android:id="@+id/nav_location"
-            android:icon="@android:drawable/ic_menu_compass"
-            android:title="Location" />
+            android:title="Locations Visited" />
     </group>
 
     <item android:title="Social Corner">
@@ -30,10 +26,6 @@
                 android:id="@+id/nav_friends"
                 android:icon="@drawable/ic_menu_gallery"
                 android:title="Friends" />
-            <item
-                android:id="@+id/nav_contact"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="Contact Us" />
         </menu>
     </item>
 
