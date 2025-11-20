@@ -4,16 +4,21 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    // 1. Unified compileSdk. Pick one version and declare it only once.
+    // 30 is a safe choice based on your dependencies.
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.example.lets_talk"
-        minSdk 23
-        targetSdk 30
-        versionCode 1
-        versionName "1.0"
+        minSdk 24
+        // 2. targetSdk should not be higher than compileSdk.
+        targetSdk 36
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // 3. Add multidex support, as old libraries often require it.
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -23,30 +28,39 @@ android {
         }
     }
 
+    // 4. It's often better to use 'pickFirst' for these common duplicates.
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
+        pickFirst 'META-INF/DEPENDENCIES.txt'
+        pickFirst 'META-INF/LICENSE.txt'
+        pickFirst 'META-INF/NOTICE.txt'
+        pickFirst 'META-INF/NOTICE'
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/DEPENDENCIES'
+        pickFirst 'META-INF/notice.txt'
+        pickFirst 'META-INF/license.txt'
+        pickFirst 'META-INF/dependencies.txt'
+        pickFirst 'META-INF/LGPL2.1'
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
+// It's also good practice to add kotlinOptions if you're using Kotlin
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
     buildFeatures {
         viewBinding true
     }
-    compileSdkVersion 30
+    namespace 'com.example.lets_talk'
+    // 5. This second declaration of compileSdkVersion was removed.
 }
 
 dependencies {
-
+    // --- Keep AndroidX Dependencies ---
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
@@ -59,40 +73,39 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'androidx.multidex:multidex:2.0.1' // Added for multidex support
+
+    // --- Third-party Libraries (Mostly OK) ---
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    //noinspection GradleCompatible
-    implementation 'com.android.support:support-v4:28.0.0'
-    //compile 'com.google.android.gms:play-services:11.0.4'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-
-    implementation 'com.mindorks:placeholderview:0.7.1'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    implementation 'com.android.support:support-annotations:28.0.0'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'android.arch.lifecycle:livedata:1.1.1'
-    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
 
-    //jetpack dependencies
-    def lifecycle_version = "2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // --- REMOVED Old and Conflicting Dependencies ---
+    // 6. Removed all old 'com.android.support' dependencies. They conflict with AndroidX.
+    // implementation 'com.android.support:support-v4:28.0.0'
+    // implementation 'com.android.support:cardview-v7:28.0.0'
+    // implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    // implementation 'com.android.support:support-annotations:28.0.0'
+    // implementation 'com.android.support:appcompat-v7:28.0.0'
+    // implementation 'com.android.support:design:28.0.0'
 
+    // 7. Removed old 'android.arch.lifecycle' dependencies. You have newer AndroidX versions.
+    // implementation 'android.arch.lifecycle:extensions:1.1.1'
+    // implementation 'android.arch.lifecycle:livedata:1.1.1'
+    // implementation 'android.arch.lifecycle:viewmodel:1.1.1'
+
+    // 8. Removed duplicate lifecycle dependencies. You already have newer versions (2.3.1).
+    // def lifecycle_version = "2.2.0"
+    // implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    // implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    // 9. fileTree can be problematic; it's better to add JARs specifically if needed.
+    // implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.lets_talk">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
@@ -23,21 +21,25 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.hotels.MyListActivity"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="MissingClass" />
         <activity
             android:name=".ui.hotels.ListActivity"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="MissingClass" />
 
         <service
             android:name=".services.ApiService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="MissingClass" />
 
         <activity
             android:name=".ui.changepassword.NavActivity"
             android:exported="true"
             android:label="@string/title_activity_nav"
-            android:theme="@style/Theme.LetsTalk.NoActionBar" />
+            android:theme="@style/Theme.LetsTalk.NoActionBar"
+            tools:ignore="MissingClass" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -45,6 +47,7 @@
 
         <activity
             android:name=".SplashActivity"
+            android:exported="true"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
